@@ -1,0 +1,133 @@
+/* HEADER */
+header {
+    text-align: center;
+    background-color: white;
+    border-bottom: 1px solid #d7d8da;
+    font-size: 18px;
+    min-height: 60px;
+  }
+.header-wrapper {
+  justify-content: center;
+}
+
+.nav {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: 2fr;
+  gap: 1px 10px;
+  align-items: center;
+  justify-items: center;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  max-width: 1200px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.grid-item {
+  min-height: 60px;
+}
+
+.nav-bottom {
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.nav-link {
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: #333333;
+}
+
+.nav-link span {
+  font-size: 12px;
+}
+
+.nav-link:hover {
+  color: #969696;
+}
+.nav-link:active {
+  color: #969696;
+}
+.nav-item {
+  display: flex;
+  justify-content: center;
+  margin-left: 10px;
+  padding: 5px;
+}
+.nav-item.logo {
+  grid-column: 1;
+  font-size: 25px;
+  font-weight: bold;
+}
+.search {
+  grid-column: 2;
+  width: 100%;
+  display: flex;
+  padding: 0px 15px;
+  flex-direction: column;
+  justify-content: center;
+}
+.header-actions {
+  grid-column: 3;
+  display: flex;
+  flex-direction: row;
+}
+.header-categories {
+  grid-column: 2;
+  display: flex;
+  flex-direction: row;
+}
+
+/* SEARCH */
+.input-field {
+  position: relative;
+  display: flex;
+}
+.search-field {
+  background-color: #f4f4f4;
+  border: none;
+  border-radius: 15px;
+  padding: 10px 15px;
+  outline: none;
+  transition: box-shadow 0.3s ease, background-color 0.3s ease;
+  width: 100%;
+  font-size: 16px;
+}
+.search-field:hover {
+  box-shadow: 0 0 0 1px #969696;
+}
+.search-field:focus {
+  box-shadow: 0 0 0 1px #636363;
+}
+.search-submit, .search-cancel {  
+  all: unset;
+  display: inline-flex;
+  transition: opacity 0.3s ease;
+
+}
+.search-submit:focus, .search-cancel:focus, .search-submit:hover, .search-cancel:hover {
+  outline: none;
+  opacity: 0.6;
+}
+
+.input-field--buttons {
+  display: flex;
+  position: absolute;
+  align-items: center;
+  right: 10px;
+  gap: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.input-field--buttons .separator {
+  width: 1px;
+  height: 15px;
+  background-color: #7d7d7d;
+}

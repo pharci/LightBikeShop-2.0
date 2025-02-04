@@ -1,2 +1,1 @@
-# LightBikeShop 2.0
- 
+# LightBikeShop FastApi + SQLAlchemy

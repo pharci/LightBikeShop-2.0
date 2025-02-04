@@ -3,6 +3,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+uploads/
+
 # C extensions
 *.so
 
@@ -158,3 +160,89 @@ cython_debug/
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.env
+*.venv
+
+# Poetry
+poetry.lock
+
+# Virtual Environment
+.env/
+.venv/
+
+# Docker
+*.log
+docker-compose.override.yml
+.env.docker
+
+# FastAPI
+instance/
+*.db
+*.sqlite3
+
+# Svelte
+node_modules/
+public/build/
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# VSCode Settings
+.vscode/
+
+# Logs
+*.log
+
+# Pytest
+.cache/
+
+# Coverage
+htmlcov/
+.coverage
+.coverage.*
+
+# Mypy
+.mypy_cache/
+
+test/__pycache__/
+
+# Build
+build/
+dist/
+
+# Frontend Cache
+.svelte-kit/
+
+# Environment Variables
+.env
+.env.*
+
+# Docker Volumes
+docker-volume/
+
+# Database Dumps
+*.sql
+*.sqlite
+
+# NPM Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# IDE Files
+.idea/
+
+# Temporary Files
+*.tmp
+*.swp
+
+# Linting
+pylint-report.txt
+flake8-report.txt

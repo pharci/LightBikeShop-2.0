@@ -1,0 +1,44 @@
+/* MOBILE NAV  */
+.mobile-nav {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    background-color: #fff;
+    border-top: 1px solid #d7d8da;
+    width: 100%;
+    flex-direction: row;
+    height: 70px;
+    justify-content: space-around;
+    padding: 5px 0;
+  }
+  .mobile-nav-item {
+    display: flex;
+  }
+  .mobile-nav-item-link {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    padding: 5px;
+    font-size: 12px;
+    width: 65px;
+  }
+  
+  @media (max-width: 778px) {
+    .header-categories {
+      display: none;
+    }
+    .header-actions {
+      display: none;
+    }
+    .footer {
+      margin-bottom: 60px;
+    }
+    .footer__info {
+      display: none;
+    }
+    .mobile-nav {
+      display: flex;
+    }
+  }

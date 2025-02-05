@@ -19,11 +19,8 @@ class Product(BaseModel):
     variants: Mapped[list["ProductVariant"]] = relationship("ProductVariant", back_populates="product", cascade="all, delete-orphan")
     reviews: Mapped["Review"] = relationship("Review", back_populates="product", cascade="all, delete-orphan")
 
-    async def __admin_repr__(self, request: Request) -> str:
-        return f"{self.name}"
-
-    async def __admin_select2_repr__(self, request: Request) -> str:
-        return f'<div><span>Количество: {escape(self.name)}</span></div>'
+    def __str__(self):
+        return self.name
 
 class ProductVariant(BaseModel):
     __tablename__ = "product_variants"
@@ -32,28 +29,14 @@ class ProductVariant(BaseModel):
     barcode: Mapped[str | None] = mapped_column(String(255), nullable=True)
     price: Mapped[float] = mapped_column(DECIMAL(10, 2), nullable=False)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
-    images: Mapped[list] = mapped_column(ImageField(thumbnail_size=(128, 128), multiple=True))
+    images: Mapped[list] = mapped_column(ImageField(thumbnail_size=(128, 128), multiple=True), nullable=True)
 
     product: Mapped["Product"] = relationship("Product", back_populates="variants")
     attributes: Mapped[list["AttributeValue"]] = relationship("AttributeValue", back_populates="variant", cascade="all, delete-orphan")
     inventory: Mapped[list["Inventory"]] = relationship("Inventory", back_populates="variant", cascade="all, delete-orphan")
     
-    async def __admin_repr__(self, request: Request) -> str:
-        return f"{self.sku}"
-
-    async def __admin_select2_repr__(self, request: Request) -> str:
-        img = self.images[0]
-
-        image_url = f"{request.base_url}admin/api/file/{img['upload_storage']}/{img["thumbnail"]["file_id"]}"
-
-        return f'''
-                    <div style="display: flex; align-items: center;">
-                        <img style="width: 5em; height: 5em; object-fit: cover; border-radius: 0.5em; margin-right: 1em;" 
-                            src="{escape(image_url)}" 
-                            alt="{escape(img['filename'])}">
-                        <span>{escape(self.sku)}</span>
-                    </div>
-                '''
+    def __str__(self):
+        return self.sku
 
 class AttributeValue(BaseModel):
     __tablename__ = 'variant_attributes'
@@ -64,8 +47,8 @@ class AttributeValue(BaseModel):
     variant: Mapped["ProductVariant"] = relationship("ProductVariant", back_populates="attributes")
     category_attribute: Mapped["CategoryAttribute"] = relationship("CategoryAttribute", back_populates="values")
 
-    def __admin_repr__(self, request: Request):
-        return f"{self.value}"
+    def __str__(self):
+        return f"{self.category_attribute.name} - {self.value}"
 
 
 class Category(BaseModel):
@@ -75,13 +58,16 @@ class Category(BaseModel):
     parent_id: Mapped[int | None] = mapped_column(Integer, ForeignKey("categories.id", ondelete="CASCADE"), nullable=True)
     description: Mapped[str | None] = mapped_column(Text, nullable=True)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
-    image: Mapped[list] = mapped_column(ImageField(thumbnail_size=(128, 128)))
+    image: Mapped[list] = mapped_column(ImageField(thumbnail_size=(128, 128)), nullable=True)
 
     products: Mapped["Product"] = relationship("Product", back_populates="category")
     category_attributes: Mapped[list["CategoryAttribute"]] = relationship("CategoryAttribute", back_populates="category")
 
-    def __admin_repr__(self, request: Request):
+    def __str__(self):
         return f"{self.name}"
+    
+    def __repr__(self):
+        return self.name
     
 class CategoryAttribute(BaseModel):
     __tablename__ = "category_attributes"
@@ -92,8 +78,8 @@ class CategoryAttribute(BaseModel):
     category: Mapped["Category"] = relationship("Category", back_populates="category_attributes")
     values: Mapped[list["AttributeValue"]] = relationship("AttributeValue", back_populates="category_attribute")
 
-    def __admin_repr__(self, request: Request):
-        return f"{self.name} ({self.type})"
+    def __str__(self):
+        return f"{self.name}"
 
 
 
@@ -103,11 +89,11 @@ class Brand(BaseModel):
     slug: Mapped[str] = mapped_column(String(255), unique=True, nullable=False)
     description: Mapped[str | None] = mapped_column(Text, nullable=True)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
-    image: Mapped[list] = mapped_column(ImageField(thumbnail_size=(128, 128)))
+    image: Mapped[list] = mapped_column(ImageField(thumbnail_size=(128, 128)), nullable=True)
 
     products: Mapped["Product"] = relationship("Product", back_populates="brand")
 
-    def __admin_repr__(self, request: Request):
+    def __str__(self):
         return f"{self.name}"
 
 class Review(BaseModel):
@@ -121,5 +107,5 @@ class Review(BaseModel):
     product: Mapped["Product"] = relationship("Product", back_populates="reviews")
     user: Mapped["User"] = relationship("User", back_populates="reviews")
 
-    def __admin_repr__(self, request: Request):
-        return f"{self.user} - {self.product}"
+    def __str__(self):
+        return f"{self.rating}"

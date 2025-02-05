@@ -46,8 +46,8 @@ class UserActivity(BaseModel):
     
     user: Mapped["User"] = relationship("User", back_populates="activities")
     
-    def __admin_repr__(self, request: Request):
-        return f"{self.activity_type}"
+    def __str__(self):
+        return self.activity_type
 
 class Wishlist(BaseModel):
     __tablename__ = "wishlists"
@@ -56,7 +56,7 @@ class Wishlist(BaseModel):
     
     user: Mapped["User"] = relationship("User", back_populates="wishlist")
     
-    def __admin_repr__(self, request: Request):
+    def __str__(self):
         return "Wishlist"
 
 
@@ -69,5 +69,5 @@ class Notification(BaseModel):
     
     user: Mapped["User"] = relationship("User", back_populates="notifications")
     
-    def __admin_repr__(self, request: Request):
-        return f"Notification: {self.message}"
+    def __str__(self):
+        return self.message

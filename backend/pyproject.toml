@@ -26,6 +26,8 @@ jinja2 = "^3.1.5"
 fasteners = "^0.19"
 python-multipart = "^0.0.20"
 fastadmin = {extras = ["fastapi", "sqlalchemy"], version = "^0.2.19"}
+flask = "^3.1.0"
+flask-admin = "^1.6.1"
 
 
 [build-system]
